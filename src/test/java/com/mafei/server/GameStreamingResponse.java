@@ -1,5 +1,6 @@
 package com.mafei.server;
 
+import com.google.common.util.concurrent.Uninterruptibles;
 import com.mafei.model.Die;
 import com.mafei.model.GameState;
 import com.mafei.model.Player;
@@ -8,6 +9,7 @@ import io.grpc.stub.StreamObserver;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author mafei
@@ -26,7 +28,7 @@ public class GameStreamingResponse implements StreamObserver<GameState> {
     public void onNext(GameState gameState) {
         List<Player> playersList = gameState.getPlayersList();
         playersList.forEach(player -> {
-            System.out.println("player = " + player);
+            System.out.println("client = " + player.getPosition());
         });
 
         boolean isGameOver = playersList.stream().anyMatch(player -> player.getPosition() == 100);
@@ -34,6 +36,7 @@ public class GameStreamingResponse implements StreamObserver<GameState> {
             System.out.println("game over!");
             this.dieStreamObserver.onCompleted();
         } else {
+            Uninterruptibles.sleepUninterruptibly(1, TimeUnit.SECONDS);
             this.roll();
         }
 
