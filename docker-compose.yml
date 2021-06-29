@@ -1,5 +1,6 @@
 version: "3"
 services:
+
   grpc-server1:
     build: .
     image: mafei/grpc-server

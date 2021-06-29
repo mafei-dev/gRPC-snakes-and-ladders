@@ -1,9 +1,15 @@
-FROM openjdk:11.0.7-jre-slim
+FROM maven:3-adoptopenjdk-11
+
+COPY . /user/app
 
 WORKDIR /user/app
 
-ADD target/grpc-intro-1.0-SNAPSHOT.jar app.jar
+RUN mvn clean
+
+RUN mvn compile
+
+RUN mvn package
+
+ENTRYPOINT java -jar prpc-snakes-and-ladders-1.0-SNAPSHOT.jar
 
 EXPOSE 6565
-
-ENTRYPOINT java -jar app.jar
