@@ -13,7 +13,10 @@ public class GRPCServer {
     public static int port = 6565;
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        Server server = ServerBuilder.forPort(port).addService(new GameService()).build();
+        Server server = ServerBuilder.forPort(port)
+                .addService(new GameService())
+                .addService(new SampleService())
+                .build();
         System.out.println("server starting on port : " + port);
         server.start();
         server.awaitTermination();
