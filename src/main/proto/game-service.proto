@@ -15,7 +15,7 @@ message Player {
 message GameState {
     repeated Player players = 1;
 }
-
+//game server
 service GameService {
     rpc Roll(stream Die) returns (stream GameState);
 }
