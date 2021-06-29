@@ -10,6 +10,6 @@ RUN mvn compile
 
 RUN mvn package
 
-ENTRYPOINT java -jar /target/prpc-snakes-and-ladders-1.0-SNAPSHOT.jar
+ENTRYPOINT java -jar target/prpc-snakes-and-ladders-1.0-SNAPSHOT.jar
 
 EXPOSE 6565
