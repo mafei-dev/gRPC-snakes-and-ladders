@@ -1,16 +1,18 @@
 version: "3"
 services:
-
   grpc-server1:
+    restart: always
     build: .
     image: mafei/grpc-server
     hostname: server1
   grpc-server2:
+    restart: always
     image: mafei/grpc-server
     hostname: server2
     depends_on:
       - grpc-server1
   nginx:
+    restart: always
     image: nginx:1.15-alpine
     depends_on:
       - grpc-server1
