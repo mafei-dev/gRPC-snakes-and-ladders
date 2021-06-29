@@ -15,13 +15,14 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameService extends GameServiceGrpc.GameServiceImplBase {
     @Override
     public StreamObserver<Die> roll(StreamObserver<GameState> responseObserver) {
-
+        System.out.println("GameService.roll");
         StreamObserver<Die> streamObserver = new StreamObserver<Die>() {
             Player client = Player.newBuilder().setName("client").build();
             Player server = Player.newBuilder().setName("server").build();
 
             @Override
             public void onNext(Die die) {
+                System.out.println("die = " + die);
                 this.client = this.getNewPlayerPosition(this.client, die.getValue());
                 //100 is the count of squares on the board
                 if (this.client.getPosition() != 100) {
